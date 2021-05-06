@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 绑定一个对应Dao接口-->
+<mapper namespace="com.wyb.dao.UserMapper">
+    <!-- select 查询语句-->
+    <!-- id="getUserList" 为查询方法名 -->
+    <!-- resultType="com.wyb.User" 为返回结果类型 -->
+
+    <!--<select id="getUserList" resultType="User">-->
+    <!--通过指定一个包名，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名-->
+    <!--<select id="getUserList" resultType="user">-->
+    <!--通过指定一个包名，有注解的情况下，会使用 注解别名-->
+    <select id="getUserList" resultType="usr">
+      SELECT * from mybatis.user
+    </select>
+
+
+    <!--<select id="getUserById" parameterType="int" resultType="usr">-->
+        <!--SELECT * from mybatis.user where id = #{id}-->
+    <!--</select>-->
+
+    <!--<select id="getUserById" parameterType="int" resultType="usr">-->
+      <!--SELECT id,name,pwd as password from mybatis.user where id = #{id}-->
+    <!--</select>-->
+    <resultMap id="userMap" type="usr">
+        <!-- column 为数据库中字段 property 为实体类中属性 -->
+        <!--<result column="id" property="id" />-->
+        <!--<result column="name" property="name" />-->
+        <result column="pwd" property="password" />
+    </resultMap>
+
+    <select id="getUserById" parameterType="int" resultMap="userMap">
+        SELECT * from mybatis.user where id = #{id}
+    </select>
+
+
+    <!--//分页-->
+    <select id="getUserByLimit" parameterType="map" resultType="usr" >
+        select * from mybatis.user limit #{startIndex},#{pageSize}
+    </select>
+
+</mapper>

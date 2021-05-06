@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 绑定一个对应Dao接口-->
+<mapper namespace="com.wyb.UserMapper">
+    <!-- select 查询语句-->
+    <!-- id="getUserList" 为查询方法名 -->
+    <!-- resultType="com.wyb.User" 为返回结果类型 -->
+
+    <!--<select id="getUserList" resultType="User">-->
+    <!--通过指定一个包名，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名-->
+    <!--<select id="getUserList" resultType="user">-->
+    <!--通过指定一个包名，有注解的情况下，会使用 注解别名-->
+    <select id="getUserList" resultType="usr">
+      SELECT * from mybatis.user
+    </select>
+
+    <select id="getUserById" parameterType="int" resultType="com.wyb.User">
+        SELECT * from mybatis.user where id = #{id}
+    </select>
+
+    <insert id="addUser" parameterType="com.wyb.User">
+        insert into mybatis.user(id,name,pwd) values (#{id},#{name},#{pwd})
+    </insert>
+
+    <update id="updateUser" parameterType="com.wyb.User" >
+        update mybatis.user set name = #{name},pwd = #{pwd} where id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="com.wyb.User">
+        delete from mybatis.user where id = #{id}
+    </delete>
+</mapper>
